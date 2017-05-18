@@ -10,7 +10,7 @@
 
     <description>Apache maven plugin to enforce that all keys are replaced when using maven resources filtering.
     </description>
-    <url>https://github.com/cedricwalter/ressources-git-maven-plugin.git</url>
+    <url>https://github.com/cedricwalter/git-branch-renamer-maven-plugin.git</url>
 
     <properties>
         <min.maven.version>3.3.9</min.maven.version>
@@ -31,10 +31,10 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/cedricwalter/ressources-git-maven-plugin.git</connection>
-        <developerConnection>scm:git:https://github.com/cedricwalter/ressources-git-maven-plugin.git
+        <connection>scm:git:https://github.com/cedricwalter/git-branch-renamer-maven-plugin.git</connection>
+        <developerConnection>scm:git:https://github.com/cedricwalter/git-branch-renamer-maven-plugin.git
         </developerConnection>
-        <url>https://github.com/cedricwalter/ressources-git-maven-plugin.git</url>
+        <url>https://github.com/cedricwalter/git-branch-renamer-maven-plugin.git</url>
     </scm>
 
     <build>
@@ -180,11 +180,6 @@
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
-        <repository>
-            <id>jgit-repository</id>
-            <url>https://repo.eclipse.org/content/groups/releases/</url>
-        </repository>
-    </repositories>
+
 
 </project>

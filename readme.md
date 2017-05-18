@@ -12,9 +12,9 @@ Read more here
 This plugin allow you to keep in ALL branches the same pom version for all your projects:
 for example ```MASTER-SNAPSHOT``` and never change it again.
 
-the project version will be derived from branch name automatically when running in your continuous integration server.
+the project version will be derived from branch name automagically when running in your continuous integration server.
 
-branch name ```feature/xxxx```
+Example if your branch name is named ```feature/xxxx```
 
 * ```<version>xxxx-SNAPSHOT</version>```   (default)
 * ```<version>xxxx</version>```  (release = true)
@@ -42,7 +42,7 @@ Add to the root pom
                 <goals>
                     <goal>pom</goal>
                 </goals>
-                <phase>process-resources</phase>
+                <phase>pre-clean</phase>
                 <configuration>
                      <!-- default values here for sake of example, all optionnal-->
                      <release>false</release> <!-- you may want to add a profile where it is true or a -D when you want to release your project -->
