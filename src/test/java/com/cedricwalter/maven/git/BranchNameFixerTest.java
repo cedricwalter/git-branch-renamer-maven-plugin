@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class BranchNameFixerTest {
 
     @Test
-    public void withBranchName_fixer_expectSnapshot () throws IOException {
+    public void withBranchName_fixer_expectVersion () throws IOException {
         // Arrange
         boolean release = false;
         boolean forceNumericalVersion = false;
@@ -66,7 +66,7 @@ class BranchNameFixerTest {
     }
 
     @Test
-    public void withBranchNameAndReleaseAndNumerical_fixer_expectRelease () throws IOException {
+    public void withBranchNameAndReleaseAndNumerical_fixer_expectVersion () throws IOException {
         // Arrange
         boolean release = true;
         boolean forceNumericalVersion = true;
@@ -85,7 +85,7 @@ class BranchNameFixerTest {
     }
 
     @Test
-    public void withBranchNameAllLowerCase_fixer_expectSnapshot () throws IOException {
+    public void withBranchNameAllLowerCase_fixer_expectVersion () throws IOException {
         // Arrange
         boolean release = false;
         boolean forceNumericalVersion = false;
@@ -105,7 +105,7 @@ class BranchNameFixerTest {
     }
 
     @Test
-    public void withBranchNameAllUpperCase_fixer_expectSnapshot () throws IOException {
+    public void withBranchNameAllUpperCase_fixer_expectVersion () throws IOException {
         // Arrange
         boolean release = false;
         boolean forceNumericalVersion = false;
@@ -125,7 +125,7 @@ class BranchNameFixerTest {
     }
 
     @Test
-    public void withBranchNameAllUpperCaseFilterOut_fixer_expectSnapshot () throws IOException {
+    public void withBranchNameAllUpperCaseFilterOut_fixer_expectVersion () throws IOException {
         // Arrange
         boolean release = false;
         boolean forceNumericalVersion = false;
