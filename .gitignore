@@ -1,0 +1,26 @@
+### Eclipse
+.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.project
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+
+### IDEA
+.idea/*
+*.ipr
+*.iws
+*/*.iml
+
+### Maven
+target/
+
