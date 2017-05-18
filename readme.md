@@ -1,7 +1,11 @@
 
 # Introduction
 When working with many feature/release/bugfix/hotfix branches, it is a bad idea to start changing the pom version as this
-will create merge conflicts when using pull request (read more here https://www.waltercedric.com/index.php?option=com_content&view=article&id=2206:update-maven-pom-version-on-git-checkout-in-teamcity&catid=129&Itemid=332).
+will create merge conflicts when using pull request 
+
+Read more here 
+* [Update Maven pom version on GIT checkout in TeamCity](https://www.waltercedric.com/index.php?option=com_content&view=article&id=2206:update-maven-pom-version-on-git-checkout-in-teamcity&catid=129&Itemid=332)
+* [maven-release-plugin with GIT](ttps://waltercedric.com/index.php?option=com_content&view=article&id=2212:maven-release-plugin-with-git&catid=356&Itemid=333))
 
 This plugin allow you to keep in ALL branches the same pom version for all your projects:
 for example ```MASTER-SNAPSHOT``` and never change it again.
@@ -37,7 +41,7 @@ Add to the root pom
                 <phase>process-resources</phase>
                 <configuration>
                      <!-- default values here for sake of example, all optionnal-->
-                     <release>false</release> <!-- you may want to use a profile wher eit is true or a -D when you want to release your project -->
+                     <release>false</release> <!-- you may want to add a profile where it is true or a -D when you want to release your project -->
                      <filterOutBranchQualifier>true</filterOutBranchQualifier>
                      <forceNumericalVersion>false</forceNumericalVersion>
                      <toUpperCase>false</toUpperCase>
