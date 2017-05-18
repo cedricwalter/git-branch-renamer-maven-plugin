@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/cedricwalter/git-branch-renamer-maven-plugin.svg?branch=master)](https://travis-ci.org/cedricwalter/git-branch-renamer-maven-plugin)
+
 
 # Introduction
 When working with many feature/release/bugfix/hotfix branches, it is a bad idea to start changing the pom version as this
