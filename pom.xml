@@ -8,7 +8,10 @@
 
     <packaging>maven-plugin</packaging>
 
-    <description>Apache maven plugin to enforce that all keys are replaced when using maven resources filtering.
+    <description>When working with many feature/release/bugix/hotfix branches, it is a bad idea to start changing the
+        pom version as this will create merge conflicts using pull request. this plugin allow you to keep in ALL
+        branches the same pom version for all your projects, for example MASTER-SNAPSHOT the version will be derived
+        from branch name automatically.
     </description>
     <url>https://github.com/cedricwalter/git-branch-renamer-maven-plugin.git</url>
 
@@ -179,7 +182,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 
 
 </project>
