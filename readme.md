@@ -23,6 +23,8 @@ branch name ```feature/xxxx```
 * Deriving Maven artifact version from GIT branch,
 * Update pom version automatically,
 * Add the ability to use Pull request with any branching workflow model
+* Remove all non portable build step in jenkins/teamcity/bamboo/...
+* All in project object model
 
 # Quick Usage
 Add to the root pom
