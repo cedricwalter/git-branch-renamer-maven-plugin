@@ -65,6 +65,12 @@ public class GitMojo extends AbstractMojo {
     @Parameter(defaultValue = "true")
     private boolean filterOutBranchQualifier;
 
+    @Parameter(defaultValue = "versionFromGitBranch")
+    private String versionFromGitBranch;
+
+    @Parameter(defaultValue = "false")
+    private boolean setVariable;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
@@ -91,6 +97,11 @@ public class GitMojo extends AbstractMojo {
             );
 
             log.info("All pom changed to " + newVersion);
+
+            if (isSetVariable()) {
+                System.setProperty(getVersionFromGitBranch(), newVersion);
+            }
+
         } catch (Exception e) {
             //rethrow. this is a deliberate failure
             throw new MojoExecutionException(e.getMessage());
@@ -180,6 +191,22 @@ public class GitMojo extends AbstractMojo {
 
     public void setFilterOutBranchQualifier(boolean filterOutBranchQualifier) {
         this.filterOutBranchQualifier = filterOutBranchQualifier;
+    }
+
+    public String getVersionFromGitBranch() {
+        return versionFromGitBranch;
+    }
+
+    public void setVersionFromGitBranch(String versionFromGitBranch) {
+        this.versionFromGitBranch = versionFromGitBranch;
+    }
+
+    public boolean isSetVariable() {
+        return setVariable;
+    }
+
+    public void setSetVariable(boolean setVariable) {
+        this.setVariable = setVariable;
     }
 
 

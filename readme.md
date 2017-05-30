@@ -22,11 +22,19 @@ Example if your branch name is named ```feature/xxxx```
 * ```<version>feature-xxxx-SNAPSHOT</version>```   (filterOutBranchQualifier = false)
 
 # Resume
-* Deriving Maven artifact version from GIT branch,
+* This plugin derive Maven artifact version from GIT branch name,
 * Update pom version automatically,
+
+# Bonus
 * Add the ability to use Pull request with any branching workflow model
-* Remove all non portable build step in jenkins/teamcity/bamboo/...
-* All in project object model
+* Remove all non portable build step (bash/shell) in jenkins/teamcity/bamboo/...
+* Centralized code in project object model (pom)
+
+# Caveat
+You need to run this code in an own maven step like ```mvn clean```, then your build in ```mvn deploy```.
+This is because Maven has read and cache the reactor content with the old version name, 
+the plugin properly change version on disk but there is no easy way to reload all projects. 
+
 
 # Quick Usage
 Add to the root pom
@@ -44,12 +52,17 @@ Add to the root pom
                 </goals>
                 <phase>pre-clean</phase>
                 <configuration>
-                     <!-- default values here for sake of example, all optionnal-->
+                     <!-- default values here for sake of example, all are optionnal -->
                      <release>false</release> <!-- you may want to add a profile where it is true or a -D when you want to release your project -->
                      <filterOutBranchQualifier>true</filterOutBranchQualifier>
                      <forceNumericalVersion>false</forceNumericalVersion>
                      <toUpperCase>false</toUpperCase>
                      <toLowerCase>false</toLowerCase>
+                     
+                     <!-- if true this will set a system property variable, the variable set will be only valid in the current process vm (maven) -->
+                     <setVariable>false</setVariable>
+                     <!-- name of the system property variable -->
+                     <versionFromGitBranch>versionFromGitBranch</versionFromGitBranch>
                 </configuration>
             </execution>
         </executions>
@@ -57,7 +70,7 @@ Add to the root pom
 </plugins>
 ```
 
-# Notes   
+# Notes
   
 * You may not want to run this plugin locally, ideally run it only in your CI server using a profile, running it locally will change pom version
 * this plugin as default rename version to snapshot, you may want to create another CI build for versioning your project, use a -D like in <release>${create.release}</release>
