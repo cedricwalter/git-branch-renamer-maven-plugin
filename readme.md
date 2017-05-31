@@ -73,6 +73,44 @@ Add to the root pom
 # Notes
   
 * You may not want to run this plugin locally, ideally run it only in your CI server using a profile, running it locally will change pom version
+```
+    <profiles>
+        <profile>
+            <id>rename-pom-version-like-branch</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.cedric.walter.maven.git</groupId>
+                        <artifactId>git-branch-renamer-maven-plugin</artifactId>
+                        <version>1.4.0</version>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>pom</goal>
+                                </goals>
+                                <phase>pre-clean</phase>
+                                <configuration>
+                                    <release>false</release>
+                                    <forceNumericalVersion>false</forceNumericalVersion>
+                                    <toUpperCase>false</toUpperCase>
+                                    <toLowerCase>false</toLowerCase>
+                                    <filterOutBranchQualifier>true</filterOutBranchQualifier>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+```
+
 * this plugin as default rename version to snapshot, you may want to create another CI build for versioning your project, use a -D like in <release>${create.release}</release>
    
 # A bit of history
