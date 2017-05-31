@@ -87,7 +87,7 @@ Add to the root pom
                     <plugin>
                         <groupId>com.cedric.walter.maven.git</groupId>
                         <artifactId>git-branch-renamer-maven-plugin</artifactId>
-                        <version>1.4.0</version>
+                        <version>1.0.0</version>
                         <inherited>false</inherited>
                         <executions>
                             <execution>
