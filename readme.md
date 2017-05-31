@@ -111,7 +111,50 @@ Add to the root pom
     </profiles>
 ```
 
-* this plugin as default rename version to snapshot, you may want to create another CI build for versioning your project, use a -D like in <release>${create.release}</release>
+* this plugin as default rename version to snapshot, you may want to create another CI build for versioning your project, 
+use a -DreleaseNow=true like in <release>${releaseNow}</release>
+```
+    <profiles>
+        <profile>
+            <id>rename-pom-version-like-branch</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+               <releaseNow>false</releaseNow>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.cedric.walter.maven.git</groupId>
+                        <artifactId>git-branch-renamer-maven-plugin</artifactId>
+                        <version>1.0.0</version>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>pom</goal>
+                                </goals>
+                                <phase>pre-clean</phase>
+                                <configuration>
+                                    <release>${releaseNow}</release>
+                                    <forceNumericalVersion>false</forceNumericalVersion>
+                                    <toUpperCase>false</toUpperCase>
+                                    <toLowerCase>false</toLowerCase>
+                                    <filterOutBranchQualifier>true</filterOutBranchQualifier>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+```   
+   
+   
    
 # A bit of history
    
