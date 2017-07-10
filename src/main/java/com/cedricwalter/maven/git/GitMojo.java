@@ -1,16 +1,16 @@
 /**
  * Copyright (c) 2017-2017 by Cédric Walter - www.cedricwalter.com
- *
+ * <p>
  * TVProgram is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * TVProgram is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -32,6 +32,7 @@ import org.eclipse.jgit.util.FS;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static org.twdata.maven.mojoexecutor.MojoExecutor.*;
 
@@ -48,6 +49,23 @@ public class GitMojo extends AbstractMojo {
 
     @Component
     private BuildPluginManager pluginManager;
+
+    /**
+     * Reactor Sorted projects; provided by Maven
+     *
+     * @parameter expression="${reactorProjects}"
+     */
+    @Parameter(defaultValue = "${reactorProjects}",
+            required = true,
+            readonly = true)
+    List<MavenProject> reactorProjects;
+
+    /**
+     * A list of every project in this reactor; provided by Maven
+     *
+     * @parameter expression="${project}"
+     */
+    MavenProject currentProject;
 
 
     @Parameter(defaultValue = "false")
@@ -99,7 +117,12 @@ public class GitMojo extends AbstractMojo {
             log.info("All pom changed to " + newVersion);
 
             if (isSetVariable()) {
+                log.info(String.format("Setting System property '%s' to '%s'.", getVersionFromGitBranch(), newVersion));
                 System.setProperty(getVersionFromGitBranch(), newVersion);
+            }
+
+            for (MavenProject reactorProject : reactorProjects) {
+                reactorProject.setVersion(newVersion);
             }
 
         } catch (Exception e) {

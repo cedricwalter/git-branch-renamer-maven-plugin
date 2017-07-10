@@ -111,7 +111,7 @@ Add to the root pom
     </profiles>
 ```
 
-* this plugin as default rename version to snapshot, you may want to create another CI build for versioning your project, 
+* This plugin as default rename version to snapshot, you may want to create another CI build for versioning your project, 
 use a -DreleaseNow=true like in <release>${releaseNow}</release>
 ```
     <profiles>
