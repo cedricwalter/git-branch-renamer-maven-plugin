@@ -18,22 +18,30 @@ Example if your branch name is named ```feature/xxxx```
 
 * ```<version>xxxx-SNAPSHOT</version>```   (default)
 * ```<version>xxxx</version>```  (release = true)
-* ```<version>0-xxxx-SNAPSHOT</version>```   (forceNumericalVersion = true)
+* ```<version>0-xxxx-SNAPSHOT</version>```   (forceNumericalVersion = true) useful for Apache Felix bundles
 * ```<version>feature-xxxx-SNAPSHOT</version>```   (filterOutBranchQualifier = false)
-
-# Resume
-* This plugin derive Maven artifact version from GIT branch name,
-* Update pom version automatically,
 
 # Bonus
 * Add the ability to use Pull request with any branching workflow model
 * Remove all non portable build step (bash/shell) in jenkins/teamcity/bamboo/...
 * Centralized code in project object model (pom)
 
+# Resume
+* This plugin derive Maven artifact version from GIT branch name,
+* Update pom version automatically,
+* Can set up a Systen variable
+* Can write a file containing calculated version
+* Support travis
+
 # Caveat
 You need to run this code in an own maven step like ```mvn clean```, then your build in ```mvn deploy```.
 This is because Maven has read and cache the reactor content with the old version name, 
-the plugin properly change version on disk but there is no easy way to reload all projects. 
+the plugin properly change version on disk but there is no easy way to reload all projects in code. 
+(Pull request welcomed if you find how) 
+
+# Travis
+Travis do not checkout the whole git, but only the branch. This plugin can detect Travis environment 
+and use the value provided from environment ${TRAVIS_BRANCH}
 
 
 # Quick Usage
@@ -63,6 +71,10 @@ Add to the root pom
                      <setVariable>false</setVariable>
                      <!-- name of the system property variable -->
                      <versionFromGitBranch>versionFromGitBranch</versionFromGitBranch>
+                     
+                     <!-- if true this will create a file in target/version.txt which contains new version number -->
+                     <setFile>true</setFile>
+                     <fileName>version.txt</fileName>
                 </configuration>
             </execution>
         </executions>

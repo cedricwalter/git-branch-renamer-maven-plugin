@@ -26,12 +26,13 @@ import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryCache;
-import org.eclipse.jgit.util.FS;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.twdata.maven.mojoexecutor.MojoExecutor.*;
 
@@ -71,12 +72,21 @@ public class GitMojo extends AbstractMojo {
     @Parameter(defaultValue = "false")
     private boolean setVariable;
 
+    @Parameter(defaultValue = "false")
+    private boolean setFile;
+
+    @Parameter(defaultValue = "version.txt")
+    private String fileName;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             BranchNameFixer branchNameFixer = new BranchNameFixer(release, forceNumericalVersion, toUpperCase, toLowerCase, filterOutBranchQualifier);
-            log.info("branch  " + getBranchName());
-            String newVersion = branchNameFixer.fixer(getBranchName());
+
+            String branchName = BranchNameDetector.getBranchName(".");
+            log.info("branch  " + branchName);
+
+            String newVersion = branchNameFixer.fixer(branchName);
 
             executeMojo(
                     plugin(
@@ -102,22 +112,33 @@ public class GitMojo extends AbstractMojo {
                 System.setProperty(getVersionFromGitBranch(), newVersion);
             }
 
+            if (setFile) {
+                writeFileWithVersion(newVersion);
+            }
+
         } catch (Exception e) {
             //rethrow. this is a deliberate failure
             throw new MojoExecutionException(e.getMessage());
         }
     }
 
-    public String getBranchName() throws IOException {
-        File directory = new File(".");
+    private void writeFileWithVersion(String newVersion) throws IOException {
+        File directory = new File("./target");
+        if (!directory.exists()) {
+            try{
+                directory.mkdir();
+            }
+            catch(SecurityException se){
+                //handle it
+            }
+        }
 
-        Repository repository =
-                RepositoryCache.open(
-                        RepositoryCache.FileKey.lenient(directory, FS.DETECTED),
-                        true);
-
-        return repository.getBranch();
+        Path path = Paths.get(directory.getCanonicalPath() + "/" + fileName);
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            writer.write("version=" + newVersion);
+        }
     }
+
 
     @Override
     public Log getLog() {
@@ -209,5 +230,19 @@ public class GitMojo extends AbstractMojo {
         this.setVariable = setVariable;
     }
 
+    public boolean isSetFile() {
+        return setFile;
+    }
 
+    public void setSetFile(boolean setFile) {
+        this.setFile = setFile;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
 }

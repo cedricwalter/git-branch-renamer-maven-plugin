@@ -16,13 +16,14 @@
  */
 package com.cedricwalter.maven.git;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-class BranchNameFixerTest {
+
+public class BranchNameFixerTest {
 
     @Test
     public void withBranchName_fixer_expectVersion () throws IOException {
@@ -43,8 +44,6 @@ class BranchNameFixerTest {
         // Assert
         assertEquals("ID-AddNewLogin-SNAPSHOT", newVersion);
     }
-
-
 
     @Test
     public void withBranchNameAndRelease_fixer_expectRelease () throws IOException {
