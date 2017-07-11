@@ -36,6 +36,7 @@ public class BranchNameDetectorTest {
     public void withTravis_getBranchName_expectSet() throws IOException {
         // Arrange
         String expectedBranchName = "master";
+        System.setProperty("TRAVIS", "true");
         System.setProperty("TRAVIS_BRANCH", expectedBranchName);
 
         // Act
@@ -53,7 +54,7 @@ public class BranchNameDetectorTest {
 
         String expectedBranchName = "master";
 
-        System.setProperty("TRAVIS_BRANCH", "");
+        System.setProperty("TRAVIS", "");
 
         // Act
         String branchName = BranchNameDetector.getBranchName(directory.getPath());

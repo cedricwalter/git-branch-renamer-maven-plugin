@@ -40,12 +40,14 @@ public class BranchNameDetector {
     }
 
     private static boolean inTravis() {
-        // for push builds, or builds not triggered by a pull request, this is the name of the branch.
-        // for builds triggered by a pull request this is the name of the branch targeted by the pull request.
-        return getTravisBranch() != null && !"".equals(getTravisBranch());
+        String travis = System.getProperty("TRAVIS");
+
+        return !"".equals(travis) && "true".equals(travis);
     }
 
     private static String getTravisBranch() {
+        // for push builds, or builds not triggered by a pull request, this is the name of the branch.
+        // for builds triggered by a pull request this is the name of the branch targeted by the pull request.
         return System.getProperty("TRAVIS_BRANCH");
     }
 
