@@ -2,18 +2,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.cedric.walter.maven.git</groupId>
+    <groupId>com.cedricwalter.maven</groupId>
     <artifactId>git-branch-renamer-maven-plugin</artifactId>
     <version>1.5.0</version>
 
     <packaging>maven-plugin</packaging>
+    <name>${project.groupId}:${project.artifactId}</name>
 
     <description>When working with many feature/release/bugix/hotfix branches, it is a bad idea to start changing the
         pom version as this will create merge conflicts using pull request. this plugin allow you to keep in ALL
         branches the same pom version for all your projects, for example MASTER-SNAPSHOT the version will be derived
         from branch name automatically.
     </description>
-    <url>https://github.com/cedricwalter/git-branch-renamer-maven-plugin.git</url>
+    <url>https://github.com/cedricwalter/git-branch-renamer-maven-plugin</url>
 
     <properties>
         <min.maven.version>3.3.9</min.maven.version>
@@ -29,6 +30,8 @@
     <developers>
         <developer>
             <name>Cédric Walter</name>
+            <email>cedric.walter@gmail.com</email>
+            <organization>None</organization>
             <organizationUrl>www.cedricwalter.com</organizationUrl>
         </developer>
     </developers>
@@ -62,20 +65,8 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -182,5 +173,66 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
