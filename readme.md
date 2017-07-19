@@ -51,7 +51,7 @@ Add to the root pom
     <plugin>
         <groupId>com.cedricwalter</groupId>
         <artifactId>git-branch-renamer-maven-plugin</artifactId>
-        <version>1.0.0</version>
+        <version>1.5.0</version>
         <inherited>false</inherited> <!-- only run once in root module -->
         <executions>
             <execution>
@@ -99,7 +99,7 @@ Add to the root pom
                     <plugin>
                         <groupId>com.cedricwalter</groupId>
                         <artifactId>git-branch-renamer-maven-plugin</artifactId>
-                        <version>1.0.0</version>
+                        <version>1.5.0</version>
                         <inherited>false</inherited>
                         <executions>
                             <execution>
@@ -142,7 +142,7 @@ use a -DreleaseNow=true like in <release>${releaseNow}</release>
                     <plugin>
                         <groupId>com.cedricwalter</groupId>
                         <artifactId>git-branch-renamer-maven-plugin</artifactId>
-                        <version>1.0.0</version>
+                        <version>1.5.0</version>
                         <inherited>false</inherited>
                         <executions>
                             <execution>
