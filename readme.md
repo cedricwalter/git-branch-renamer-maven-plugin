@@ -34,6 +34,10 @@ Example if your branch name is named ```feature/xxxx```
 * Support travis
 
 # Caveat
+
+Maven 2.0, 2.1, 2.2 and 3.0 do not currently support re-reading modifications of the pom.xml within one 
+invocation of Maven.
+
 You need to run this code in an own maven step like ```mvn clean```, then your build in ```mvn deploy```.
 This is because Maven has read and cache the reactor content with the old version name, 
 the plugin properly change version on disk but there is no easy way to reload all projects in code. 
@@ -106,7 +110,7 @@ Add to the root pom
                                 <goals>
                                     <goal>pom</goal>
                                 </goals>
-                                <phase>pre-clean</phase>
+                                <phase>post-clean</phase>
                                 <configuration>
                                     <release>false</release>
                                     <forceNumericalVersion>false</forceNumericalVersion>
@@ -149,7 +153,7 @@ use a -DreleaseNow=true like in <release>${releaseNow}</release>
                                 <goals>
                                     <goal>pom</goal>
                                 </goals>
-                                <phase>pre-clean</phase>
+                                <phase>post-clean</phase>
                                 <configuration>
                                     <release>${releaseNow}</release>
                                     <forceNumericalVersion>false</forceNumericalVersion>

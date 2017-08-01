@@ -40,6 +40,7 @@ public class BranchNameDetector {
     }
 
     private static boolean inTravis() {
+        // see https://docs.travis-ci.com/user/environment-variables/
         String travis = System.getProperty("TRAVIS");
 
         return !"".equals(travis) && "true".equals(travis);
